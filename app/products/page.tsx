@@ -1,11 +1,11 @@
-import { PlusIcon } from "lucide-react";
-import { Button } from "../_components/ui/button";
+
 import { DataTable } from "../_components/ui/data-table";
 import { productTableColumns } from "./_components/table-columns";
 import { GetProducts } from "../_data-access/product/get-products";
+import AddProductButton from "./_components/add-product-button";
 
 
-
+    
 const ProductsPage = async () => {
 
     const products = await GetProducts();
@@ -15,17 +15,21 @@ const ProductsPage = async () => {
             {/* Left */}
             <div className="flex w-full items-center justify-between">
                 <div className="space-y-1">
-                    <span className="text-xs font-semibold text-slate-500">Product Management</span>
-                    <h2 className="text-xl font-semibold">Products</h2>
+                    <span className="text-xs font-semibold text-slate-500">
+                        Product Management
+                    </span>
+                    <h2 className="text-xl font-semibold">
+                        Products
+                    </h2>
                 </div>
 
-                <Button className="gap-2">
-                    <PlusIcon  size={20}/>
-                    New Product
-                </Button>
+                <AddProductButton/>
+               
             </div>
             
-            <DataTable columns={productTableColumns} data={products}/>
+            
+        
+             <DataTable columns={productTableColumns} data={products}/>  
         </div>
      );
 }
