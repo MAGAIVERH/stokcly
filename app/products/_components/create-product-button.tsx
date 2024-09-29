@@ -1,47 +1,17 @@
 "use client"
 
 import { Button } from "@/app/_components/ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/app/_components/ui/dialog";
-import { Loader2Icon, PlusIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-  } from "@/app/_components/ui/form"
-  import { Input } from "@/app/_components/ui/input"
-import { NumericFormat } from "react-number-format";
-import { CreateProduct} from "@/app/_actions/product/create-product";
+import { Dialog, DialogTrigger } from "@/app/_components/ui/dialog";
+import { PlusIcon } from "lucide-react";
+import UpsertProductDialogContent from "./upsert-dialog-content";
 import { useState } from "react";
-import { CreateProductSchema, createProductSchema } from "@/app/_actions/product/create-product/schema";
+
+
 
 
 const CreateProductButton = () => {
-
-    const [dialogIsOpen, setDialogIsOpen] = useState(false);
-
-       const form = useForm<CreateProductSchema>({
-        shouldUnregister: true,
-        resolver: zodResolver(createProductSchema),
-        defaultValues: {
-            name: "",
-            price: 0,
-            stock: 1,
-        }
-    })
-
-    const onSubmit = async (data: CreateProductSchema) => {
-        try {
-            await CreateProduct(data)
-            setDialogIsOpen(false)
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+ 
     return ( 
         <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
         <DialogTrigger asChild>
@@ -51,89 +21,9 @@ const CreateProductButton = () => {
             </Button>
         </DialogTrigger>
 
-        <DialogContent>
-            <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <DialogHeader>
-                    <DialogTitle>
-                        Create Product
-                    </DialogTitle>
-                    <DialogDescription>
-                        Enter the Information Below.
-                    </DialogDescription>
-                </DialogHeader>
+        <UpsertProductDialogContent onSuccess={() => setDialogIsOpen(false)} />
 
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Product Name</FormLabel>
-                        <FormControl>
-                           <Input placeholder="Enter the product NAME" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="price"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>The Product Price</FormLabel>
-                        <FormControl>
-                        <NumericFormat
-                           thousandSeparator="."
-                           decimalSeparator=","
-                           fixedDecimalScale
-                           decimalScale={2}
-                           prefix="$"
-                           allowNegative={false}
-                           customInput={Input}
-                           onValueChange={(values) => field.onChange(values.floatValue)}
-                           {...field}
-                           onChange={() => {}}
-                           />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="stock"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Stock</FormLabel>
-                        <FormControl>
-                            <Input 
-                                type="number"
-                                placeholder="Enter the product stock" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant= "secondary" type= "reset"> Cancel</Button>
-                    </DialogClose>
-
-                    <Button type= "submit" disabled= {form.formState.isSubmitting} className="gap-1.5">
-                        {form.formState.isSubmitting && (
-                            <Loader2Icon className="animate-spin" size={16} />
-                        )}
-                        Save
-                    </Button>
-                </DialogFooter>
-            </form>    
-            </Form>
-           
-        </DialogContent>
+       
     </Dialog>
      );
 }
