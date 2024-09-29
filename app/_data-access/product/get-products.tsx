@@ -9,9 +9,9 @@ export const GetProducts = async (): Promise<Product[]> => {
   return  await db.product.findMany({ })
 }
 
-export const cachedGetProducts = unstable_cache (
-  GetProducts,
-  ["get-products"], {
-    revalidate: 5,
+export const cachedGetProducts = unstable_cache(GetProducts, ["GetProducts"], 
+  {
+    tags: ["Get-Products"],
+    revalidate: 60,
   }
 )
