@@ -41,6 +41,13 @@ export const productTableColumns: ColumnDef<Product>[] = [
   {
     accessorKey: "price",
     header: "Unit Price",
+    cell: (row) => {
+      const product = row.row.original
+      return Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD", 
+      }).format (Number(product.price));
+    }
   },
   {
     accessorKey: "stock",

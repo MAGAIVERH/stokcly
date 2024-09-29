@@ -76,7 +76,7 @@ const UpsertProductDialogContent = ({defaultValues, onSuccess}: UpsertProductDia
                     <FormItem>
                     <FormLabel>Product Name</FormLabel>
                     <FormControl>
-                       <Input placeholder="Enter the product NAME" {...field} />
+                       <Input placeholder="Enter the product Name" {...field} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
