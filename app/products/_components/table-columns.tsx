@@ -21,6 +21,9 @@ import {
   AlertDialogTrigger,
 } from "@/app/_components/ui/alert-dialog"
 import DeleteProductDialogContent from "./delete-dialog-content"
+import { Dialog, DialogTrigger } from "@/app/_components/ui/dialog"
+import UpsertProductDialogContent from "./upsert-dialog-content"
+import { useState } from "react"
 
 
 
@@ -61,9 +64,11 @@ export const productTableColumns: ColumnDef<Product>[] = [
     accessorKey: "actions",
     header: "Actions",
     cell: (row) => {
+      const [editDialogOpen, setEditDialogOpen] = useState(false);
       const product = row.row.original 
       return (
-    <AlertDialog>  
+    <AlertDialog> 
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost">
@@ -81,11 +86,14 @@ export const productTableColumns: ColumnDef<Product>[] = [
               <ClipboardCopyIcon size={16}/>
                 Copy ID
             </DropdownMenuItem>
-            <DropdownMenuItem
-              className="gap-1.5">
-                <EditIcon size={16}/>
-                Edit
-            </DropdownMenuItem>
+           
+           <DialogTrigger asChild>
+              <DropdownMenuItem
+                className="gap-1.5">
+                  <EditIcon size={16}/>
+                  Edit
+              </DropdownMenuItem>
+           </DialogTrigger>
            
             
           <AlertDialogTrigger asChild>
@@ -98,8 +106,16 @@ export const productTableColumns: ColumnDef<Product>[] = [
                  
           </DropdownMenuContent>
       </DropdownMenu>
-
+      
+      <UpsertProductDialogContent defaultValues={{
+        id: product.id,
+        name: product.name,
+        price: Number(product.price),
+        stock: product.stock,
+      }}
+      onSuccess={() => setEditDialogOpen(false)}/>
       <DeleteProductDialogContent productId={product.id}/>
+      </Dialog> 
     </AlertDialog>
       )
     }
