@@ -1,8 +1,8 @@
-import { Button } from "../_components/ui/button";
+
 import { ComboboxOption } from "../_components/ui/combobox";
-import { Sheet, SheetTrigger } from "../_components/ui/sheet";
 import { GetProducts } from "../_data-access/product/get-products";
-import UpsertSheetContent from "./_components/upsert-sheet-content";
+import CreateSaleButton from "./_components/create-sale-button";
+
 
 const SalesPage = async () => {
     const products = await GetProducts();
@@ -21,13 +21,7 @@ const SalesPage = async () => {
                     Sales
                 </h2>
             </div>
-            <Sheet>
-                <SheetTrigger asChild>
-                    <Button>New Sale</Button>
-                </SheetTrigger>
-
-                <UpsertSheetContent products={products} productOptions={productOptions}/>
-            </Sheet>
+         <CreateSaleButton  products={products} productOptions={productOptions}/>
             
            
         </div>
