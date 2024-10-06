@@ -51,12 +51,28 @@ const UpsertSheetContent = ({products,  productOptions }:UpsertSheetContentProps
     })
 
     const onSubmit = (data: FormSchema ) => {
-       const selectedProduct = products.find(product => product.id === data.productId)
+       const selectedProduct = products.find(
+        (product) => product.id === data.productId
+    );
        if (!selectedProduct) return;
 
-       setSelectedProducts((currentProducts) => {
-            const existingProduct = currentProducts.find(product => product.id === selectedProduct.id);
+         setSelectedProducts((currentProducts) => {
+         const existingProduct = currentProducts.find(
+                (product) => product.id === selectedProduct.id
+            );
+            
             if(existingProduct) {
+              const productIsOutOfStock = 
+                existingProduct.quantity + data.quantity > selectedProduct.stock;
+
+                if(productIsOutOfStock ){
+                    form.setError("quantity", {
+                        message: "Quantity unavailable in stock."
+                    })
+                    return currentProducts;
+                }
+      
+                form.reset()
                 return currentProducts.map((product) => {
                     if(product.id ===selectedProduct.id) {
                         return {
@@ -67,9 +83,20 @@ const UpsertSheetContent = ({products,  productOptions }:UpsertSheetContentProps
                     return product;
                 })
                 }
+                
+                const productIsOutOfStock = 
+                 data.quantity > selectedProduct.stock
+                 if(productIsOutOfStock ){
+                    form.setError("quantity", {
+                        message: "Quantity unavailable in stock.",
+                    })
+                    return currentProducts;
+                 }
+                form.reset()
+                
             return [...currentProducts, {...selectedProduct, price: Number(selectedProduct.price), quantity: data.quantity}];
        })
-       form.reset()
+       
     }
 
     const productsTotal = useMemo(() => {
