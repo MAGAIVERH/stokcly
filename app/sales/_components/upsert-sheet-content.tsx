@@ -13,7 +13,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { Product } from "@prisma/client";
 import { Table, TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter } from "@/app/_components/ui/table";
 import { formatCurrency } from "@/app/_helpers/currency";
-import SalesTableDropdownMenu from "./table-dropdown-menu";
+import UpsertSalesTableDropdownMenu from "./upsert-table-dropdown-menu";
 import { createSale } from "@/app/_actions/product/sale/create-sale";
 import { toast } from "sonner";
 
@@ -199,7 +199,7 @@ const UpsertSheetContent = ({products,  productOptions, setSheetIsOpen }:UpsertS
                             <TableCell>{product.quantity}</TableCell>
                             <TableCell >{formatCurrency(product.price * product.quantity)}</TableCell>
                             <TableCell >
-                              <SalesTableDropdownMenu product={product}  onDelete={onDelete}/>
+                              <UpsertSalesTableDropdownMenu product={product}  onDelete={onDelete}/>
                             </TableCell>
                         </TableRow>
                         ))}
