@@ -3,7 +3,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/app/_components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/app/_components/ui/dropdown-menu";
 import { Sale } from "@prisma/client";
-import { MoreHorizontalIcon, ClipboardCopyIcon, EditIcon, TrashIcon } from "lucide-react";
+import { MoreHorizontalIcon, ClipboardCopyIcon,  TrashIcon } from "lucide-react";
 import { toast } from "sonner";
 import {useAction} from "next-safe-action/hooks";
 
@@ -52,11 +52,7 @@ const SalesTableDropdownMenu = ({sale}: SalesTableDropdownMenuProps) => {
                   Copy ID
               </DropdownMenuItem>
               
-                <DropdownMenuItem
-                  className="gap-1.5">
-                    <EditIcon size={16}/>
-                    Edit
-                </DropdownMenuItem>
+              
             
             <AlertDialogTrigger asChild>
               <DropdownMenuItem className="gap-1.5">   
