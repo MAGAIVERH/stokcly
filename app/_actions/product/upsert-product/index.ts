@@ -21,5 +21,5 @@ export const upsertProduct = async (data: UpsertProductSchema ) => {
         stock: data.stock,
        }
     });
-    revalidatePath("/products");
+    revalidatePath("/", "layout");
 }
