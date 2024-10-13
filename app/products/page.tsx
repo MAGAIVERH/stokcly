@@ -10,7 +10,7 @@ const ProductsPage = async () => {
     const products = await GetProducts();
 
     return ( 
-        <div className="w-full space-y-8 m-8 rounded-lg p-8 bg-white">
+        <div className="w-full space-y-8 m-8 rounded-lg p-8 bg-white overflow-auto">
 
             <Header>
                 <HeaderLeft> 
