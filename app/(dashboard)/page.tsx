@@ -1,13 +1,20 @@
-import { CircleDollarSign, DollarSign, PackageIcon, ShoppingBasketIcon } from "lucide-react";
+
 import Header, { HeaderLeft, HeaderSubtitle, HeaderTitle } from "../_components/header";
-import { SummaryCard, SummaryCardIcon, SummaryCardTitle, SummaryCardValue } from "./_components/summary-card";
 import { getDashboard } from "../_data-access/dashboard/get-dashboard";
-import { formatCurrency } from "../_helpers/currency";
 import RevenueChart from "./_components/revenue-chart";
 import MostSoldProductItem from "./_components/most-sold-product-item";
+import TotalRevenueCard from "./_components/total-revenue-card";
+import { Suspense } from "react";
+import { Skeleton } from "../_components/ui/skeleton";
+import TodayRevenueCard from "./_components/today-revenue-card";
+import TotalSalesCard from "./_components/total-sales-card";
+import TotalStockCard from "./_components/total-stock-card";
+import TotalProductsCard from "./_components/total-products-card";
 
 const  Home = async () => {
-  const {totalRevenue, todayRevenue, totalSales, totalStock, totalProducts, totalLast14DaysRevenue, mostSoldProducts} = 
+  const { 
+    totalLast14DaysRevenue, 
+    mostSoldProducts} = 
   await getDashboard();
   return (
     <div className="w-full space-y-8 m-8 rounded-lg flex flex-col ">
@@ -19,77 +26,30 @@ const  Home = async () => {
         </Header>
 
         <div className="grid grid-cols-2 gap-6">
-          <SummaryCard>
-            <SummaryCardIcon>
-                <DollarSign />
-            </SummaryCardIcon>
 
-            <SummaryCardTitle>
-            Total Revenue
-            </SummaryCardTitle>
+            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+                <TotalRevenueCard /> 
+            </Suspense>
 
-            <SummaryCardValue>
-              {formatCurrency(totalRevenue)}
-            </SummaryCardValue>
-          </SummaryCard>
+            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+              <TodayRevenueCard />
+            </Suspense>
 
-          <SummaryCard>
-            <SummaryCardIcon>
-                <DollarSign />
-            </SummaryCardIcon>
-
-            <SummaryCardTitle>
-            Today Revenue
-            </SummaryCardTitle>
-
-            <SummaryCardValue>
-              {formatCurrency(todayRevenue)}
-            </SummaryCardValue>
-          </SummaryCard>
         </div>
 
         <div className="grid grid-cols-3 gap-6">
-        <SummaryCard>
-            <SummaryCardIcon>
-                <CircleDollarSign />
-            </SummaryCardIcon>
 
-            <SummaryCardTitle>
-            Total Sales
-            </SummaryCardTitle>
+            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+              <TotalSalesCard />
+            </Suspense>
 
-            <SummaryCardValue>
-              {totalSales}
-            </SummaryCardValue>
-        </SummaryCard>
+            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+              <TotalStockCard />
+            </Suspense>
 
-        <SummaryCard>
-            <SummaryCardIcon>
-                <PackageIcon />
-            </SummaryCardIcon>
-
-            <SummaryCardTitle>
-            Total In Stock
-            </SummaryCardTitle>
-
-            <SummaryCardValue>
-              {totalStock}
-            </SummaryCardValue>
-        </SummaryCard>
-
-        <SummaryCard>
-            <SummaryCardIcon>
-                <ShoppingBasketIcon />
-            </SummaryCardIcon>
-
-            <SummaryCardTitle>
-            Products
-            </SummaryCardTitle>
-
-            <SummaryCardValue>
-              {totalProducts}
-            </SummaryCardValue>
-        </SummaryCard>
+            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+              <TotalProductsCard />
+            </Suspense>
         </div>
 
       <div className="grid min-h-0 grid-cols-[minmax(0,2.5fr),minmax(0,1fr)] gap-6">
