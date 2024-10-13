@@ -5,11 +5,11 @@ import RevenueChart from "./_components/revenue-chart";
 import MostSoldProductItem from "./_components/most-sold-product-item";
 import TotalRevenueCard from "./_components/total-revenue-card";
 import { Suspense } from "react";
-import { Skeleton } from "../_components/ui/skeleton";
 import TodayRevenueCard from "./_components/today-revenue-card";
 import TotalSalesCard from "./_components/total-sales-card";
 import TotalStockCard from "./_components/total-stock-card";
 import TotalProductsCard from "./_components/total-products-card";
+import { SummaryCardSkeleton } from "./_components/summary-card";
 
 const  Home = async () => {
   const { 
@@ -27,11 +27,12 @@ const  Home = async () => {
 
         <div className="grid grid-cols-2 gap-6">
 
-            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
-                <TotalRevenueCard /> 
+            <Suspense 
+              fallback={<SummaryCardSkeleton/>} >
+            <TotalRevenueCard /> 
             </Suspense>
 
-            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+            <Suspense fallback={<SummaryCardSkeleton/>}>
               <TodayRevenueCard />
             </Suspense>
 
@@ -39,15 +40,15 @@ const  Home = async () => {
 
         <div className="grid grid-cols-3 gap-6">
 
-            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+            <Suspense fallback={<SummaryCardSkeleton/>}>
               <TotalSalesCard />
             </Suspense>
 
-            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+            <Suspense fallback={<SummaryCardSkeleton/>}>
               <TotalStockCard />
             </Suspense>
 
-            <Suspense fallback={<Skeleton className="bg-white bg-opacity-75 rounded-xl"/>}>
+            <Suspense fallback={<SummaryCardSkeleton/>}>
               <TotalProductsCard />
             </Suspense>
         </div>
