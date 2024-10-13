@@ -1,7 +1,7 @@
 
 import Header, { HeaderLeft, HeaderSubtitle, HeaderTitle } from "../_components/header";
 
-import MostSoldProductItem, { MostSoldProductItemSkeleton } from "./_components/most-sold-product-item";
+import  { MostSoldProductItemSkeleton } from "./_components/most-sold-product-item";
 import TotalRevenueCard from "./_components/total-revenue-card";
 import { Suspense } from "react";
 import TodayRevenueCard from "./_components/today-revenue-card";
